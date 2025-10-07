@@ -1,14 +1,12 @@
 import React from "react";
 import s from "./Insurance.module.css";
-
-/* Swap these with your actual assets (SVG/PNG/WebP). */
 import aetna from "../../assets/aetna.png";
 import bcbs from "../../assets/bcbsa.jpg";
 import carelon from "../../assets/carelon.png";
 import cigna from "../../assets/cigna.webp";
 import cms from "../../assets/Cms.png";
 import humana from "../../assets/humana.webp";
-import medicaid from "../../assets/medicaid.webp";
+import medicaid from "../../assets/Medicaid.webp";
 import optum from "../../assets/Optum.png";
 import presbyterian from "../../assets/Presbyterian.jpg";
 import tricare from "../../assets/TRICARE.svg";
