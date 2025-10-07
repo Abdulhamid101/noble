@@ -1,0 +1,134 @@
+:root {
+  --text: #3a3a3a;
+  --ring: #3c8d7a;
+}
+
+/* Section shell */
+.section {
+  padding: clamp(40px, 7vw, 80px) 0;
+  background: #fff;
+}
+.header {
+  text-align: center;
+  margin-bottom: clamp(16px, 3vw, 28px);
+  padding: 0 clamp(16px, 4vw, 28px);
+}
+.title {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(22px, 3.6vw, 32px);
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+
+/* ===================== */
+/* Auto-scrolling marquee */
+/* ===================== */
+.trackWrap {
+  --gap: clamp(40px, 6vw, 80px);
+  mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  overflow: hidden;
+  padding: clamp(8px, 1.2vw, 12px) 0;
+}
+.track {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: max-content; /* lets it be wider than the container */
+  animation: marquee 35s linear infinite;
+}
+.trackWrap:hover .track,
+.trackWrap:focus-within .track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - var(--gap) / 2));
+  } /* 2x content width */
+}
+
+.item {
+  flex: 0 0 auto;
+}
+.logo {
+  height: clamp(28px, 5.2vw, 54px);
+  width: auto;
+  filter: saturate(0.95) contrast(1.05);
+  opacity: 0.95;
+  transform: translateZ(0);
+  transition: transform 0.25s ease, opacity 0.25s ease, filter 0.25s ease;
+}
+.logo:hover {
+  transform: scale(1.05);
+  opacity: 1;
+  filter: none;
+}
+
+/* ==================== */
+/* Static grid fallback  */
+/* (hidden by default;   */
+/* shown for users with  */
+/* reduced motion)       */
+/* ==================== */
+.grid {
+  display: none; /* hidden unless reduced motion */
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(16px, 2.4vw, 28px);
+  align-items: center;
+  justify-items: center;
+  list-style: none;
+  padding: clamp(10px, 2vw, 16px) clamp(16px, 4vw, 28px);
+  margin: 0;
+}
+.gridItem {
+  display: grid;
+  place-items: center;
+}
+.gridLogo {
+  height: clamp(28px, 5.2vw, 54px);
+  width: auto;
+}
+
+/* Responsive column counts (only apply when grid is visible) */
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 520px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Respect reduced motion: switch OFF marquee, show static grid */
+@media (prefers-reduced-motion: reduce) {
+  .trackWrap {
+    display: none !important;
+  }
+  .grid {
+    display: grid !important;
+  }
+}
+
+/* Focus styles (if logos become links later) */
+:where(a:focus-visible) .logo,
+.gridLogo:focus-visible {
+  outline: 3px solid #fff;
+  box-shadow: 0 0 0 6px var(--ring);
+  border-radius: 8px;
+}

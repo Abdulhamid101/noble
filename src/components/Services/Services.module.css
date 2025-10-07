@@ -1,0 +1,206 @@
+:root {
+  /* Healing & Calm palette */
+  --primary: #a8d5ba; /* soft green */
+  --secondary: #ffffff;
+  --accent: #f5e6ca; /* warm beige */
+  --text: #3a3a3a; /* charcoal */
+  --cta: #3c8d7a; /* teal */
+  --ring: #3c8d7a;
+
+  --teal-bg: #0f5d57; /* deep teal for section background */
+  --radius: 18px;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.16);
+}
+
+.section {
+  position: relative;
+  padding: clamp(56px, 8vw, 110px) 0;
+  background: var(--teal-bg);
+  color: var(--secondary);
+  isolation: isolate;
+}
+
+.header {
+  max-width: 920px;
+  margin: 0 auto clamp(28px, 4.2vw, 42px) auto;
+  padding: 0 clamp(16px, 4vw, 28px);
+  text-align: center;
+}
+
+.kicker {
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: var(--primary);
+  margin: 0 0 8px 0;
+  font-size: clamp(14px, 1.6vw, 18px);
+}
+
+.title {
+  margin: 0;
+  font-weight: 900;
+  line-height: 1.22;
+  color: #fff;
+  font-size: clamp(26px, 4.4vw, 42px);
+}
+
+.grid {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 28px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 2.8vw, 28px);
+}
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card base */
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 22px;
+  padding: clamp(14px, 2vw, 18px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  transform: translateY(18px);
+  opacity: 0;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.25s ease;
+}
+.card:hover {
+  transform: translateY(10px);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Staggered reveal */
+.in1 {
+  animation: rise 0.7s 0.05s both;
+}
+.in2 {
+  animation: rise 0.75s 0.15s both;
+}
+.in3 {
+  animation: rise 0.8s 0.25s both;
+}
+
+.figure {
+  margin: 0 0 10px 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(245, 230, 202, 0.45),
+    rgba(168, 213, 186, 0.35)
+  );
+}
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: scale(1.02);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.35s ease;
+}
+.card:hover .image {
+  transform: scale(1.06);
+  filter: contrast(1.02) saturate(1.02);
+}
+
+.cardTitle {
+  color: #fff;
+  margin: 6px 6px 10px 6px;
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 900;
+}
+
+.list {
+  list-style: none;
+  margin: 0 6px 12px 6px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  color: #eaf4f2;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+.tick {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--primary), #74c39a);
+  color: #0a302d;
+  font-weight: 900;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+/* CTA */
+.cta {
+  width: fit-content;
+  appearance: none;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, var(--cta), #2e7062);
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  margin: 6px;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+.cta:hover {
+  transform: translateY(-1px);
+  filter: saturate(1.05);
+}
+.cta:active {
+  transform: translateY(1px);
+}
+.cta:focus-visible {
+  outline: 3px solid #fff;
+  box-shadow: 0 0 0 6px var(--ring), var(--shadow);
+}
+.arrow {
+  display: inline-block;
+  margin-left: 6px;
+  transition: transform 0.25s ease;
+}
+.cta:hover .arrow {
+  transform: translateX(2px);
+}
+
+/* Animations */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Motion safety */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .image {
+    transition: none !important;
+  }
+}

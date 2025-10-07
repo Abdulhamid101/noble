@@ -1,0 +1,257 @@
+:root {
+  --primary: #a8d5ba; /* soft green */
+  --accent: #f5e6ca; /* warm beige */
+  --text: #3a3a3a; /* charcoal */
+  --cta: #3c8d7a; /* teal */
+  --ring: #3c8d7a;
+}
+
+.section {
+  position: relative;
+  padding: clamp(56px, 8vw, 110px) 0;
+  background: repeating-linear-gradient(
+      135deg,
+      rgba(168, 213, 186, 0.06) 0 14px,
+      rgba(168, 213, 186, 0.04) 14px 28px
+    ),
+    #fff;
+}
+
+.header {
+  max-width: 900px;
+  margin: 0 auto clamp(20px, 4vw, 40px);
+  padding: 0 clamp(16px, 4vw, 28px);
+  text-align: center;
+}
+.kicker {
+  color: var(--cta);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  margin: 0 0 6px 0;
+  font-size: clamp(14px, 1.6vw, 18px);
+}
+.title {
+  margin: 0;
+  color: var(--text);
+  font-weight: 900;
+  font-size: clamp(26px, 4.4vw, 42px);
+  line-height: 1.2;
+}
+
+/* Layout: points | QR | points */
+.layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 28px);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: clamp(16px, 3vw, 40px);
+  align-items: center;
+}
+@media (max-width: 980px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+}
+
+/* Points */
+.points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(18px, 2.6vw, 26px);
+  opacity: 0;
+  transform: translateY(12px);
+  filter: blur(2px);
+}
+.in.points {
+  animation: rise 0.8s 0.05s both;
+}
+.pointH {
+  color: #2c6e66;
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 900;
+  margin: 0 0 6px 0;
+}
+.pointP {
+  margin: 0;
+  color: #575757;
+  line-height: 1.7;
+  max-width: 42ch;
+}
+.left .pointP,
+.left .pointH {
+  text-align: right;
+}
+@media (max-width: 980px) {
+  .left .pointP,
+  .left .pointH {
+    text-align: left;
+  }
+}
+
+/* Arrows (drawn with SVG) */
+.arrow {
+  position: absolute;
+  width: clamp(120px, 18vw, 200px);
+  height: clamp(50px, 8vw, 90px);
+  pointer-events: none;
+}
+.path {
+  fill: none;
+  stroke: rgba(44, 110, 102, 0.35);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 4 8;
+  animation: dash 10s linear infinite;
+}
+.tip {
+  fill: none;
+  stroke: rgba(44, 110, 102, 0.55);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.point {
+  position: relative;
+}
+.left .point {
+  padding-right: clamp(36px, 5vw, 60px);
+}
+.right .point {
+  padding-left: clamp(36px, 5vw, 60px);
+}
+
+/* Arrow positions around the center QR */
+.aL1 {
+  right: -8px;
+  top: -8px;
+  transform: translateX(100%);
+}
+.aL2 {
+  right: -8px;
+  bottom: -8px;
+  transform: translateX(100%) scaleY(-1);
+}
+.aR1 {
+  left: -8px;
+  top: -8px;
+  transform: translateX(-100%);
+}
+.aR2 {
+  left: -8px;
+  bottom: -8px;
+  transform: translateX(-100%) scaleY(-1);
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+/* QR card */
+.qrCard {
+  appearance: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(14px) scale(0.98);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease,
+    opacity 0.35s ease;
+  border-radius: 20px;
+  padding: 0;
+}
+.in.qrCard {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.qrCard:hover {
+  transform: translateY(-2px) scale(1.01);
+}
+
+.qrFrame {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: clamp(14px, 2.2vw, 20px);
+  border-radius: 20px;
+  background: #0f5d57;
+  box-shadow: 0 20px 50px rgba(44, 110, 102, 0.28);
+  position: relative;
+}
+.qrFrame::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 24px;
+  background: radial-gradient(
+      120% 160% at 20% -20%,
+      rgba(168, 213, 186, 0.45),
+      transparent 40%
+    ),
+    radial-gradient(
+      120% 160% at 80% 120%,
+      rgba(245, 230, 202, 0.45),
+      transparent 40%
+    );
+  z-index: -1;
+  filter: blur(6px);
+  opacity: 0.9;
+}
+
+.scan {
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: #e6f4f1;
+}
+.sub {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: #e6f4f1;
+  opacity: 0.9;
+}
+.qrImg {
+  display: block;
+  width: clamp(180px, 28vw, 240px);
+  height: auto;
+  border-radius: 12px;
+  background: #fff;
+}
+.url {
+  font-size: 12px;
+  color: #e6f4f1;
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .points,
+  .qrCard {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .path {
+    animation: none !important;
+  }
+}
+
+/* Animations */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}

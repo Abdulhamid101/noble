@@ -1,0 +1,301 @@
+:root {
+  --teal: #3c8d7a;
+  --teal-600: #2e7062;
+  --text: #2c3a36;
+  --ring: #3c8d7a;
+  --radius: 14px;
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Shell / themes ===== */
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  isolation: isolate;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.light {
+  background: #fff;
+}
+.teal {
+  background: #3c8d7a;
+  color: #fff;
+}
+
+/* ===== Top bar ===== */
+.bar {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 10px clamp(12px, 4vw, 24px);
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.logo {
+  height: 42px;
+  width: auto;
+  display: block;
+}
+.sr {
+  position: absolute;
+  left: -9999px;
+}
+
+/* desktop nav */
+.nav {
+  display: block;
+}
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: clamp(14px, 3vw, 28px);
+  justify-content: center;
+  align-items: center;
+}
+.item {
+  position: relative;
+}
+.link,
+.linkBtn {
+  display: inline-block;
+  padding: 10px 4px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  text-decoration: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.light .link:hover,
+.light .linkBtn:hover {
+  color: #1d4f47;
+}
+.teal .link,
+.teal .linkBtn {
+  color: #fff;
+}
+.teal .link:hover,
+.teal .linkBtn:hover {
+  color: #eaf4f2;
+}
+
+/* dropdown with hover bridge (no flicker) */
+.hasMenu {
+  position: relative;
+}
+.hasMenu::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 10px;
+}
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 240px;
+  background: #fff;
+  color: var(--text);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 10px;
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: 0.18s ease;
+  z-index: 10000;
+}
+.hasMenu:hover .dropdown,
+.hasMenu:focus-within .dropdown,
+.open .dropdown {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.dropLink {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+}
+.dropLink:hover {
+  background: #f3faf6;
+}
+
+/* desktop book now */
+.book {
+  justify-self: end;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--teal), var(--teal-600));
+  padding: 10px 16px;
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(60, 141, 122, 0.22);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.book:hover {
+  transform: translateY(-1px);
+  filter: saturate(1.05);
+}
+.book:focus-visible {
+  outline: 3px solid #fff;
+  box-shadow: 0 0 0 6px var(--ring);
+}
+
+/* burger */
+.burger {
+  display: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #fff;
+  cursor: pointer;
+  justify-self: end;
+}
+.burger span {
+  display: block;
+  height: 2px;
+  background: var(--teal);
+  margin: 7px 8px;
+}
+
+/* ===== Mobile BOOK NOW bar under header ===== */
+.mBookBar {
+  display: none; /* shown only on mobile */
+  position: sticky;
+  top: 64px; /* sits right below header; adjust if header height differs */
+  z-index: 9998;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, var(--teal), var(--teal-600));
+  padding: 12px 16px;
+  box-shadow: 0 6px 16px rgba(60, 141, 122, 0.25) inset;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.hide {
+  display: none !important;
+}
+
+/* ===== Mobile panel ===== */
+.panel {
+  position: fixed;
+  inset: 64px 0 0 0; /* appears just below the sticky header */
+  background: #fff;
+  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+}
+.open {
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mNav {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 8px clamp(12px, 4vw, 24px) 20px;
+}
+.mLink {
+  display: block;
+  padding: 14px 6px;
+  border-bottom: 1px solid #f0f2f2;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+/* mobile accordion */
+.mSum {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 6px;
+  border: 0;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 900;
+  color: var(--text);
+  border-bottom: 1px solid #f0f2f2;
+}
+.chev {
+  transition: transform 0.2s ease;
+}
+.rot {
+  transform: rotate(180deg);
+}
+.mGroup {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+  display: grid;
+  gap: 2px;
+  background: #fff;
+}
+.show {
+  max-height: 400px;
+}
+.mSublink {
+  display: block;
+  padding: 10px 18px 12px;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid #f7f9f9;
+}
+
+/* mobile CTA inside panel */
+.mBook {
+  display: block;
+  margin: 14px 0 0;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--teal), var(--teal-600));
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+
+/* responsive switches */
+@media (max-width: 980px) {
+  .nav,
+  .book {
+    display: none;
+  } /* hide desktop nav + CTA */
+  .burger {
+    display: inline-grid;
+    align-items: center;
+  }
+  .bar {
+    grid-template-columns: auto 1fr auto;
+  }
+  .mBookBar {
+    display: block;
+  } /* show mobile bar */
+}
